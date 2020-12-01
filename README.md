@@ -14,7 +14,7 @@ For any questions or comments/bugs please reach out to me at alexandre@argeris.n
 
 # Prerequisites:
 
-- Enable ERS API and create an ERS ADMIN API User in ISE save the credentials.
+- Enable ERS API and create an ERS ADMIN API User in ISE save the credential.
 https://developer.cisco.com/docs/identity-services-engine/3.0/#!setting-up/cisco-ise
 
 - Create a ISE Authorization Profile.
@@ -26,15 +26,8 @@ https://developer.cisco.com/docs/identity-services-engine/3.0/#!setting-up/cisco
 - Create a Quarantine rule in the Global Authorization policy
 ![image](./images/ise_policy.png)
 
-- Create the Duo Target based on the hostname in the Cisco SecureX Orchestration. 
-
-  - Give a name, like "Duo"
-  - No account keys: True
-  - HTTPS protocol, host/IP address: API hostname
-  - Proxy: Ignore Proxy
-  
-- Use this "Duo" target in the workflows selecting "Override workflow target" option and "Duo" target.
-
+- Create a TARGET for ISE hostname and credential in SecureX AO
+![image](./images/ise_target.png)
 
 # Import these workflows into SecureX Orchestration as atomic workflows:
   
