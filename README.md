@@ -9,7 +9,7 @@ Use cases :
 
 For any questions or comments/bugs please reach out to me at alexandre@argeris.net or aargeris@cisco.com
 
-![image](./casebook.png)
+![image](./images/casebook.png)
 <br/>
 
 # Main workflows:
