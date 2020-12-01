@@ -32,35 +32,35 @@ https://developer.cisco.com/docs/identity-services-engine/3.0/#!setting-up/cisco
 - Create a TARGET for ISE hostname and credential in SecureX AO
 ![image](./images/ise_target.png)
 
-# Import these workflows into SecureX Orchestration as atomic workflows:
+# Import these workflows into SecureX Orchestration as Atomic Actions:
   
-- CTRGenerateAccessToken.json
-
-  This Atomic workflow action will get CTR access token.
-
-- CTR Create Casebook.json 
-
-  This Atomic workflow actions will create Casebook.  
-  
-- Duo Admin - Get DENIED or FRAUD Auth Logs.json
-
-  This Atomic workflow action will fetch Duo auth denied and fraud logs.
+- ISE Add Endpoint ID to EndpointGroupID.json
+- ISE Get Endpoint Group ID from GroupName.json 
+- ISE Get Endpoint ID from MacAdresse.json
+- ISE Get Endpoint Info from ID.json
+- ISE Quarantine Endpoint.json
+- ISE Re_authenticate Endpoint.json
 
 # Main workflows:
 
-- Duo Admin logs - Casebook and Sightings.json
-  This workflow will fetch Duo (DENIDED or FRAUD) logs every 1hour (can be set by modifying the variable - interval - ) and parse the output to create a casebook and sigthings in SecureX platform. 
-  
-![image](./Screen_Shot_casebook_workflow.png)
+- RTC - ISE MacAddress.json
+![image](./images/workflow.png)
 <br/>  
-# Remediation workflows
 
-- Duo Admin - Block User By Username.json  
+# Workflow in action !
 
-  This Atomics workflow action block a Duo user based on username. (Work only if the Duo user is local - not sync with Azure AD or Win AD)
-  credit to https://github.com/Gyuri1/duo-sxo
-  
-- Quarantine Duo User.json
-  This workflow give you access to quarantine user in Duo from the SecureX AO contextuel menu.
-  
-- Azure AD - lockdown user (not documented yet)
+- Initiate the worflow from the CTR browser plugin  
+![image](./images/splunk.png)
+<br/>
+
+- ISE logs  
+![image](./images/ise_logs.png)
+<br/>
+
+- Meraki Client  
+![image](./images/meraki_client.png)
+<br/>
+
+- FMC
+![image](./images/fmc.png)
+<br/>
