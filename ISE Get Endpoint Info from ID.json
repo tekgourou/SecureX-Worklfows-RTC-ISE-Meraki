@@ -1,0 +1,269 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_01KJXXSAYXR057Nkp6cLtglvTKTVibMXc1B",
+    "name": "ISE Get Endpoint Info from ID",
+    "title": "ISE Get Endpoint Info from ID",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "groupId",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01KJZD4PF9Y295IVI27uSAJNDeZYzdCT89o",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "name",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01KJZC74KDZHW32Z9U7pbLrSrHEyuQz3RMr",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.boolean",
+        "properties": {
+          "scope": "output",
+          "name": "staticGroupAssignment",
+          "type": "datatype.boolean",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01KJZDKLNFZYY33et98f2MIFmVzuysrHvYu",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "id",
+          "type": "datatype.string",
+          "is_required": true,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01KJXXSALU6GN1BQ4ICZ9p4EfvLyW3zznIG",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "mac",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01KJZCBKURJEK7JZXPGSuUgWJWIVe9PC2vs",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.boolean",
+        "properties": {
+          "scope": "output",
+          "name": "staticProfileAssignment",
+          "type": "datatype.boolean",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01KJZCWJY96HA1cmmYHwvdKillkBXRZHFm1",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "json_output",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01KJZC0NOIPMP6uBQRktExNKaTltxoED3p2",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "profileId",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01KJZCM0WTUF75fMX9IPahVIDELlIS3MXw1",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "atomic_group": "Cisco ISE",
+        "is_atomic": true
+      },
+      "delete_workflow_instance": false,
+      "description": "This atomic Get Endpoint info from MACAddress.\n\naargeris@cisco.com",
+      "display_name": "ISE Get Endpoint Info from ID",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "target_type": "web-service.endpoint",
+        "specify_on_workflow_start": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_01KJXXSTGJ3WR6bDSGr6uaElK8cnZWtwAyY",
+        "name": "HTTP Request",
+        "title": "ISE API REQUEST",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "accept": "application/json",
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "content_type": "application/json",
+          "continue_on_error_status_code": true,
+          "continue_on_failure": false,
+          "display_name": "ISE API REQUEST",
+          "method": "GET",
+          "relative_url": "/endpoint/$workflow.definition_workflow_01KJXXSAYXR057Nkp6cLtglvTKTVibMXc1B.input.variable_workflow_01KJXXSALU6GN1BQ4ICZ9p4EfvLyW3zznIG$",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": false,
+            "override_workflow_target_group_criteria": false,
+            "use_workflow_target": true,
+            "use_workflow_target_group": false
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01KJZ421AVHHW0FgwYFEJEmBncL5DLCpm9n",
+        "name": "JSONPath Query",
+        "title": "JSONPath Query",
+        "type": "corejava.jsonpathquery",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "JSONPath Query",
+          "input_json": "$activity.definition_activity_01KJXXSTGJ3WR6bDSGr6uaElK8cnZWtwAyY.output.response_body$",
+          "jsonpath_queries": [
+            {
+              "jsonpath_query": "$.ERSEndPoint.id",
+              "jsonpath_query_name": "id",
+              "jsonpath_query_type": "string"
+            },
+            {
+              "jsonpath_query": "$.ERSEndPoint.name",
+              "jsonpath_query_name": "name",
+              "jsonpath_query_type": "string"
+            },
+            {
+              "jsonpath_query": "$.ERSEndPoint.mac",
+              "jsonpath_query_name": "mac",
+              "jsonpath_query_type": "string"
+            },
+            {
+              "jsonpath_query": "$.ERSEndPoint.profileId",
+              "jsonpath_query_name": "profileId",
+              "jsonpath_query_type": "string"
+            },
+            {
+              "jsonpath_query": "$.ERSEndPoint.staticProfileAssignment",
+              "jsonpath_query_name": "staticProfileAssignment",
+              "jsonpath_query_type": "string"
+            },
+            {
+              "jsonpath_query": "$.ERSEndPoint.groupId",
+              "jsonpath_query_name": "groupId",
+              "jsonpath_query_type": "string"
+            },
+            {
+              "jsonpath_query": "$.ERSEndPoint.staticGroupAssignment",
+              "jsonpath_query_name": "staticGroupAssignment",
+              "jsonpath_query_type": "string"
+            },
+            {
+              "jsonpath_query": "$.ERSEndPoint.portalUser",
+              "jsonpath_query_name": "portalUser",
+              "jsonpath_query_type": "string"
+            },
+            {
+              "jsonpath_query": "$.ERSEndPoint.identityStore",
+              "jsonpath_query_name": "identityStore",
+              "jsonpath_query_type": "string"
+            },
+            {
+              "jsonpath_query": "$.ERSEndPoint.identityStoreId",
+              "jsonpath_query_name": "IdentityStoreId",
+              "jsonpath_query_type": "string"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01KJZDNO3304L0MPXQI9cS5yp2EBXUBDvNh",
+        "name": "Set Variables",
+        "title": "Set Variables",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Set Variables",
+          "skip_execution": false,
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_01KJXXSAYXR057Nkp6cLtglvTKTVibMXc1B.output.variable_workflow_01KJZC0NOIPMP6uBQRktExNKaTltxoED3p2$",
+              "variable_value_new": "$activity.definition_activity_01KJXXSTGJ3WR6bDSGr6uaElK8cnZWtwAyY.output.response_body$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_01KJXXSAYXR057Nkp6cLtglvTKTVibMXc1B.output.variable_workflow_01KJZD4PF9Y295IVI27uSAJNDeZYzdCT89o$",
+              "variable_value_new": "$activity.definition_activity_01KJZ421AVHHW0FgwYFEJEmBncL5DLCpm9n.output.jsonpath_queries.groupId$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_01KJXXSAYXR057Nkp6cLtglvTKTVibMXc1B.output.variable_workflow_01KJZCBKURJEK7JZXPGSuUgWJWIVe9PC2vs$",
+              "variable_value_new": "$activity.definition_activity_01KJZ421AVHHW0FgwYFEJEmBncL5DLCpm9n.output.jsonpath_queries.mac$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_01KJXXSAYXR057Nkp6cLtglvTKTVibMXc1B.output.variable_workflow_01KJZC74KDZHW32Z9U7pbLrSrHEyuQz3RMr$",
+              "variable_value_new": "$activity.definition_activity_01KJZ421AVHHW0FgwYFEJEmBncL5DLCpm9n.output.jsonpath_queries.name$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_01KJXXSAYXR057Nkp6cLtglvTKTVibMXc1B.output.variable_workflow_01KJZCM0WTUF75fMX9IPahVIDELlIS3MXw1$",
+              "variable_value_new": "$activity.definition_activity_01KJZ421AVHHW0FgwYFEJEmBncL5DLCpm9n.output.jsonpath_queries.profileId$"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+    ]
+  }
+}
