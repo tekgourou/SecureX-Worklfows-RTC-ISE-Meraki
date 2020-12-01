@@ -44,7 +44,7 @@ https://developer.cisco.com/docs/identity-services-engine/3.0/#!setting-up/cisco
 # Main workflows:
 
 - RTC - ISE MacAddress.json
-![image](./images/workflow.png)
+![image](./images/main_workflow.png)
 <br/>  
 
 # Workflow in action !
