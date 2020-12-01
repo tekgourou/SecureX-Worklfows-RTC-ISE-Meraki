@@ -12,24 +12,19 @@ For any questions or comments/bugs please reach out to me at alexandre@argeris.n
 ![image](./images/casebook.png)
 <br/>
 
-# Main workflows:
-
-- Duo Admin logs - Casebook and Sightings.json
-  This workflow will fetch Duo (DENIDED or FRAUD) logs every 1hour (can be set by modifying the variable - interval - ) and parse the output to create a casebook and sigthings in SecureX platform. 
-  
-![image](./Screen_Shot_casebook_workflow.png)
-<br/>  
-
 # Prerequisites:
 
-- Create an Admin API application in Duo and save the credentials.
-    https://duo.com/docs/adminapi
-    
-- Copy these credentials into Cisco SecureX Orchestration variable section:
+- Enable ERS API and create an ERS ADMIN API User in ISE save the credentials.
+https://developer.cisco.com/docs/identity-services-engine/3.0/#!setting-up/cisco-ise
 
-  - Admin Integration Key (iKey), Host as a string variables [duo_admin_ikey], [duo_host]
-  - Admin Secret Key (sKey) as a Secure string variable [duo_admin_skey]
+- Create a ISE Authorization Profile.
+![image](./images/ise_auth_profile.png)
 
+- Create a Quarantine rule in the Global Authorization policy
+![image](./images/ise_policy.png)
+
+- Create a Quarantine ISE Identity Endpoint Group
+![image](./images/ise_identity_group.png)
 
 - Create the Duo Target based on the hostname in the Cisco SecureX Orchestration. 
 
@@ -55,7 +50,13 @@ For any questions or comments/bugs please reach out to me at alexandre@argeris.n
 
   This Atomic workflow action will fetch Duo auth denied and fraud logs.
 
+# Main workflows:
 
+- Duo Admin logs - Casebook and Sightings.json
+  This workflow will fetch Duo (DENIDED or FRAUD) logs every 1hour (can be set by modifying the variable - interval - ) and parse the output to create a casebook and sigthings in SecureX platform. 
+  
+![image](./Screen_Shot_casebook_workflow.png)
+<br/>  
 # Remediation workflows
 
 - Duo Admin - Block User By Username.json  
