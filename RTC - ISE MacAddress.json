@@ -1,0 +1,436 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_01KKJCRSU3BU46BgEWWyXwYrccEPSQCL8xo",
+    "name": "RTC - ISE MacAddress",
+    "title": "RTC - ISE MacAddress",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "Quarantine",
+          "scope": "input",
+          "name": "Endpoint Identity Group Name",
+          "type": "datatype.string",
+          "is_required": true,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01KKKDX9CT1AG70EfPmNDrEtJEgbP7mbd8L",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "observable_value",
+          "type": "datatype.string",
+          "is_required": true,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01KKLDCKTD7ND38Udqm2k8Y5OoDsyD7Z5oc",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "description": "[Supported observables: mac address]\nDescription:\nAdd Endpoint mac address to Endpoint group and send a re_authentificate to the network device.",
+      "display_name": "RTC - ISE MacAddress",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "execute_on_target_group": true,
+        "target_group": {
+          "target_group_id": "target_group_01EJ0TQWPQWBD0qiWqClJKj9FOzwiZRfOFH",
+          "run_on_all_targets": false,
+          "selected_target_types": [
+            "web-service.endpoint"
+          ],
+          "use_criteria": {
+            "choose_target_using_algorithm": "choose_all_with_matching_criteria",
+            "conditions": [
+              {
+                "operator": "eq",
+                "left_operand": "$targetgroup.web-service endpoint.input.display_name$",
+                "right_operand": "ISE_ERS_API"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_01KKJFRQGM6J423DSLQ265UaOsd3UPfQBO7",
+        "name": "Parallel Block",
+        "title": "Parallel Block",
+        "type": "logic.parallel",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Parallel Block",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_01KKJFS1CB8J76Rdm8uXse6JSz3uLWQx75I",
+            "name": "Parallel Branch",
+            "title": "GET Endpoint info",
+            "type": "logic.parallel_block",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "GET Endpoint info",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_01KKJD6DNIN4A7fjSaSFK6qqapxMCXyVXbU",
+                "name": "ISE Get Endpoint ID from MacAdresse",
+                "title": "ISE Get Endpoint ID from MacAdresse",
+                "type": "workflow.atomic_workflow",
+                "base_type": "subworkflow",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "ISE Get Endpoint ID from MacAdresse",
+                  "input": {
+                    "variable_workflow_01KJXO92U0P532zEJqHHcAJZv69500aU3JR": "$workflow.definition_workflow_01KKJCRSU3BU46BgEWWyXwYrccEPSQCL8xo.input.variable_workflow_01KKLDCKTD7ND38Udqm2k8Y5OoDsyD7Z5oc$"
+                  },
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "use_workflow_target_group": true
+                  },
+                  "workflow_id": "definition_workflow_01KJXMVMFM3RT3jbggdc1hYt1mZxhNMSa5c"
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_01KKJD7PSCS2F42BCeRI9fXWPpp7ksEZ33p",
+                "name": "ISE Get Endpoint Info from ID",
+                "title": "ISE Get Endpoint Info from ID",
+                "type": "workflow.atomic_workflow",
+                "base_type": "subworkflow",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "ISE Get Endpoint Info from ID",
+                  "input": {
+                    "variable_workflow_01KJXXSALU6GN1BQ4ICZ9p4EfvLyW3zznIG": "$activity.definition_activity_01KKJD6DNIN4A7fjSaSFK6qqapxMCXyVXbU.output.variable_workflow_01KJYSS7SWMFL5fvNxWMhPlgEjYZ9m56HIe$"
+                  },
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "use_workflow_target_group": true
+                  },
+                  "workflow_id": "definition_workflow_01KJXXSAYXR057Nkp6cLtglvTKTVibMXc1B"
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_01KKJFS2J6PFN6sJlNaOMQVcQf3Nls97rMm",
+            "name": "Parallel Branch",
+            "title": "Get Endpoint Group Info",
+            "type": "logic.parallel_block",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Get Endpoint Group Info",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_01KKJFA330L3075qVslZL64btHjMriRBKbd",
+                "name": "ISE Get Endpoint Group ID from GroupName",
+                "title": "ISE Get Endpoint Group ID from GroupName",
+                "type": "workflow.atomic_workflow",
+                "base_type": "subworkflow",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "ISE Get Endpoint Group ID from GroupName",
+                  "input": {
+                    "variable_workflow_01KJYKG6HIMPM2trw3Agj8QjxOiNBL289P5": "$workflow.definition_workflow_01KKJCRSU3BU46BgEWWyXwYrccEPSQCL8xo.input.variable_workflow_01KKKDX9CT1AG70EfPmNDrEtJEgbP7mbd8L$"
+                  },
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "use_workflow_target_group": true
+                  },
+                  "workflow_id": "definition_workflow_01KJYKG6V2E4H6K5qVo9zra9U4MT0czV7VH"
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_01KKNMBN6HFWE7UbmlJAMGm1JIXGoRzpyPQ",
+        "name": "Parallel Block",
+        "title": "Parallel Block",
+        "type": "logic.parallel",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Parallel Block",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_01KKNMC1E05BT6vklzeJtvnOdOea4XDC20C",
+            "name": "Parallel Branch",
+            "title": "Quarantine Endpoint",
+            "type": "logic.parallel_block",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Quarantine Endpoint",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_01KKJVKNV1CLS5PEhmVJQicSZjfDPbGRQty",
+                "name": "ISE Add Endpoint ID to EndpointGroupID",
+                "title": "ISE Add Endpoint ID to EndpointGroupID",
+                "type": "workflow.atomic_workflow",
+                "base_type": "subworkflow",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "ISE Add Endpoint ID to EndpointGroupID",
+                  "input": {
+                    "variable_workflow_01KKJ36GR78LK2dNZpXCGkoCOW6Ju3yaNn1": "$activity.definition_activity_01KKJFA330L3075qVslZL64btHjMriRBKbd.output.variable_workflow_01KJYMGI0PXSO5xgOJFk9uNDvecTaSpQ5c7$",
+                    "variable_workflow_01KKJ36GR7A043l0tyoeHz0B7pKfae6z4UC": "$activity.definition_activity_01KKJD6DNIN4A7fjSaSFK6qqapxMCXyVXbU.output.variable_workflow_01KJYSS7SWMFL5fvNxWMhPlgEjYZ9m56HIe$",
+                    "variable_workflow_01KKJSJXLVBDK6k6P0aslAjctO2gykHB0oD": "$activity.definition_activity_01KKJD7PSCS2F42BCeRI9fXWPpp7ksEZ33p.output.variable_workflow_01KJZCM0WTUF75fMX9IPahVIDELlIS3MXw1$",
+                    "variable_workflow_01KKJT3ZYXE854iSbdlB5B7ncE7QvsEuTir": "$activity.definition_activity_01KKJD7PSCS2F42BCeRI9fXWPpp7ksEZ33p.output.variable_workflow_01KJZCBKURJEK7JZXPGSuUgWJWIVe9PC2vs$"
+                  },
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "use_workflow_target_group": true
+                  },
+                  "workflow_id": "definition_workflow_01KKJ36H3CXAA2TRvzEqbo4mR6317sX26B7"
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_01KKK7CSH4P6Y4iGeEa1Ew7V0BgKxAI7juG",
+                "name": "ISE Re_authenticate Endpoint",
+                "title": "ISE Re_authenticate Endpoint",
+                "type": "workflow.atomic_workflow",
+                "base_type": "subworkflow",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "ISE Re_authenticate Endpoint",
+                  "input": {
+                    "variable_workflow_01KHJJ2IZG9I64E6JFRwVn7rPzFvXM7SM4j": "Re_authenticate",
+                    "variable_workflow_01KHJJ2IZGATM4L1ZtnbOtYiuUufVALEacK": "$activity.definition_activity_01KKJD7PSCS2F42BCeRI9fXWPpp7ksEZ33p.output.variable_workflow_01KJZCBKURJEK7JZXPGSuUgWJWIVe9PC2vs$"
+                  },
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "use_workflow_target_group": true
+                  },
+                  "workflow_id": "definition_workflow_01KHJJ2JBGD4G4kNALxZnCWPuP4dWBCJroQ"
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_01KKNI94D1ANY1GD0Hp1fVRlO2NO0VOdkjw",
+                "name": "ISE Quarantine Endpoint",
+                "title": "ISE Quarantine Endpoint",
+                "type": "workflow.atomic_workflow",
+                "base_type": "subworkflow",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "ISE Quarantine Endpoint",
+                  "input": {
+                    "variable_workflow_01D1JWOXYKX157IYAtRwpxEJCMVm0ygrteN": "$workflow.definition_workflow_01KKJCRSU3BU46BgEWWyXwYrccEPSQCL8xo.input.variable_workflow_01KKLDCKTD7ND38Udqm2k8Y5OoDsyD7Z5oc$",
+                    "variable_workflow_01D1JWOXYL0Y71fkcyqjvRwIjpKrjFXV2zy": "Quarantine"
+                  },
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "use_workflow_target_group": true
+                  },
+                  "workflow_id": "definition_workflow_01D1JWOKZYQ591V38WMwIfS59Wi2DIogWla"
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_01KKNMC36F3RS566ZKq1XGrQsMxKAd0tihT",
+            "name": "Parallel Branch",
+            "title": "Create Casebook",
+            "type": "logic.parallel_block",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Create Casebook",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_01KKL75PP7OAV7jdnMtloqlu4QGF1BDEG7j",
+                "name": "CTRGenerateAccessToken",
+                "title": "CTRGenerateAccessToken",
+                "type": "workflow.atomic_workflow",
+                "base_type": "subworkflow",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "CTRGenerateAccessToken",
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "override_workflow_target_group_criteria": true,
+                    "target_group": {
+                      "run_on_all_targets": false,
+                      "use_criteria": {
+                        "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                        "conditions": [
+                          {
+                            "left_operand": "$targetgroup.web-service endpoint.input.display_name$",
+                            "operator": "eq",
+                            "right_operand": "CTR_For_Access_Token"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "workflow_id": "definition_workflow_01779LB6MV0P02kvka9TGV5cEam84NrCTy4"
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_01KKL6WB845A945INuGpbXbQF3uqcivWDAf",
+                "name": "CTR Create Casebook",
+                "title": "CTR Create Casebook",
+                "type": "workflow.atomic_workflow",
+                "base_type": "subworkflow",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "CTR Create Casebook",
+                  "input": {
+                    "variable_workflow_01E8OQUDV95VA45dnDR0Kzm5HlMxNSnk7HH": "$activity.definition_activity_01KKL75PP7OAV7jdnMtloqlu4QGF1BDEG7j.output.variable_workflow_01BNOOXA3G6MV1PGAvsfZOKDdMYcE6XS726$",
+                    "variable_workflow_01FI7GJDK40MI6qNg2jcng0YaHlmz0Zgwq5": "",
+                    "variable_workflow_01FI7JJEVXRFA5s9maRdVwlqV7ENc6KhST2": "Rapid Threat Containment - Using ISE for MacAddress - $workflow.definition_workflow_01KKJCRSU3BU46BgEWWyXwYrccEPSQCL8xo.input.variable_workflow_01KKLDCKTD7ND38Udqm2k8Y5OoDsyD7Z5oc$",
+                    "variable_workflow_01FI7NA9QZI9I46crflRbf7I6zIfajxuHrX": "[\n{\n\"type\": \"mac_address\",\n\"value\": \"$workflow.definition_workflow_01KKJCRSU3BU46BgEWWyXwYrccEPSQCL8xo.input.variable_workflow_01KKLDCKTD7ND38Udqm2k8Y5OoDsyD7Z5oc$\"\n}\n]",
+                    "variable_workflow_01FRLITVY3NO678mmPZHG5lCdqLjEyY2j1h": "raw"
+                  },
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "override_workflow_target_group_criteria": true,
+                    "target_group": {
+                      "run_on_all_targets": false,
+                      "use_criteria": {
+                        "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                        "conditions": [
+                          {
+                            "left_operand": "$targetgroup.web-service endpoint.input.display_name$",
+                            "operator": "eq",
+                            "right_operand": "Private_CTIA_Target"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "workflow_id": "definition_workflow_01DS6ELBOO8YR3uFJZju566LqiqR18VlE6r"
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "categories": [
+      "category_01EI33LMFFL7N5eTQLsOOJIrxdlSOHb7r3r",
+      "category_01FM7CGPZZCMY0KcvgiGjVH5UaB4y4aDJ7m"
+    ]
+  },
+  "categories": {
+    "category_01EI33LMFFL7N5eTQLsOOJIrxdlSOHb7r3r": {
+      "unique_name": "category_01EI33LMFFL7N5eTQLsOOJIrxdlSOHb7r3r",
+      "name": "SecureX",
+      "title": "SecureX",
+      "type": "basic.category",
+      "base_type": "category",
+      "category_type": "custom",
+      "object_type": "category"
+    },
+    "category_01FM7CGPZZCMY0KcvgiGjVH5UaB4y4aDJ7m": {
+      "unique_name": "category_01FM7CGPZZCMY0KcvgiGjVH5UaB4y4aDJ7m",
+      "name": "response",
+      "title": "response",
+      "type": "basic.category",
+      "base_type": "category",
+      "category_type": "custom",
+      "object_type": "category"
+    }
+  },
+  "target_groups": {
+    "target_group_01EJ0TQWPQWBD0qiWqClJKj9FOzwiZRfOFH": {
+      "unique_name": "target_group_01EJ0TQWPQWBD0qiWqClJKj9FOzwiZRfOFH",
+      "name": "Default TargetGroup",
+      "title": "Default TargetGroup",
+      "type": "generic.target_group",
+      "base_type": "target_group",
+      "version": "1.0.0",
+      "targets": [
+        {
+          "data_target_type": "web-service.endpoint",
+          "view_target_type": "web-service.endpoint",
+          "include_all_targets": true
+        },
+        {
+          "data_target_type": "email.smtp_endpoint",
+          "view_target_type": "email.smtp_endpoint",
+          "include_all_targets": true
+        }
+      ],
+      "object_type": "target_group"
+    }
+  },
+  "atomic_workflows": [
+    "definition_workflow_01D1JWOKZYQ591V38WMwIfS59Wi2DIogWla",
+    "definition_workflow_01KJXXSAYXR057Nkp6cLtglvTKTVibMXc1B",
+    "definition_workflow_01779LB6MV0P02kvka9TGV5cEam84NrCTy4",
+    "definition_workflow_01KJXMVMFM3RT3jbggdc1hYt1mZxhNMSa5c",
+    "definition_workflow_01KKJ36H3CXAA2TRvzEqbo4mR6317sX26B7",
+    "definition_workflow_01KHJJ2JBGD4G4kNALxZnCWPuP4dWBCJroQ",
+    "definition_workflow_01KJYKG6V2E4H6K5qVo9zra9U4MT0czV7VH",
+    "definition_workflow_01DS6ELBOO8YR3uFJZju566LqiqR18VlE6r"
+  ]
+}
