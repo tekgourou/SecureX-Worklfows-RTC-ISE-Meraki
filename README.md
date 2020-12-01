@@ -26,6 +26,9 @@ https://developer.cisco.com/docs/identity-services-engine/3.0/#!setting-up/cisco
 - Create a Quarantine rule in the Global Authorization policy
 ![image](./images/ise_policy.png)
 
+- Create a Group Policy in Meraki
+![image](./images/meraki_group_policy.png)
+
 - Create a TARGET for ISE hostname and credential in SecureX AO
 ![image](./images/ise_target.png)
 
