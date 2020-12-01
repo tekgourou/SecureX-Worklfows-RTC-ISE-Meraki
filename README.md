@@ -20,11 +20,11 @@ https://developer.cisco.com/docs/identity-services-engine/3.0/#!setting-up/cisco
 - Create a ISE Authorization Profile.
 ![image](./images/ise_auth_profile.png)
 
-- Create a Quarantine rule in the Global Authorization policy
-![image](./images/ise_policy.png)
-
 - Create a Quarantine ISE Identity Endpoint Group
 ![image](./images/ise_identity_group.png)
+
+- Create a Quarantine rule in the Global Authorization policy
+![image](./images/ise_policy.png)
 
 - Create the Duo Target based on the hostname in the Cisco SecureX Orchestration. 
 
